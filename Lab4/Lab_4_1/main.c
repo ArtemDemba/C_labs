@@ -5,33 +5,14 @@ int SizeStr(char* str)					//size of string
 {
 	return strlen(str);
 }
-char Foo(char* str);
-int* Dels(char* str)
-{
-	int letter[26] = { 0 };			//array for info about uniqueness letters
-	int Delimiters[20] = { 0 };		//array for info about delimiters
-	int count = 0;
-	for (int i = 0; i < SizeStr(str); i++)
-	{
-		if (letter[str[i] - 97] != 1 && str[i] != ' ')
-		{
-			printf("%c", str[i]);
-			letter[str[i] - 97]++;
-		}
-		if (str[i] == ' ')
-		{
-			Delimiters[count] = i;
-			count++;
-		}
-	}
-	return Delimiters;
-}
 int main()
 {
-	int max = 100;
+	int max = 100, count = 0;
+	int letter[26] = { 0 };					//array for info about uniqueness letters
+	int Delimiters[20] = { 0 };				//array for info about delimiters
 	char* str = (char*)malloc(max * sizeof(char));
 	gets_s(str, max);
-	int count = 0;
+	int sizeStr = SizeStr(str);
 	if (!str)
 	{
 		printf("No memory...\n");
@@ -39,16 +20,21 @@ int main()
 	}
 	else
 	{
-		for (int i = 0; i < SizeStr(str); i++)
+		for (int i = 0; i < sizeStr; i++)
 		{
-			if (letter[str[i] - 97] != 1 && str[i] != ' ')
+			if (letter[str[i] - 97] != 1 && str[i] != ' ')	//checking for uniqueness
 			{
 				printf("%c", str[i]);
 				letter[str[i] - 97]++;
 			}
+			if (str[i] == ' ')
+			{
+				Delimiters[count] = i;
+				count++;
+			}
 		}
 		printf("\n");
-		for (int i = 0; i < count; i++)
+		for (int i = 0; i < count; i++)					//checking that words begin with the same letter
 		{
 			if (i == 0)
 			{
@@ -60,8 +46,8 @@ int main()
 					}
 					printf(", ");
 				}
-			}			
-			else 
+			}
+			else
 			{
 				if (str[Delimiters[i] - 1] == str[Delimiters[i - 1] + 1])
 				{
@@ -73,9 +59,9 @@ int main()
 				}
 			}
 		}
-		if (str[SizeStr(str) - 1] == str[Delimiters[count - 1] + 1])
+		if (str[sizeStr - 1] == str[Delimiters[count - 1] + 1])
 		{
-			for (int i = Delimiters[count - 1]; i < SizeStr(str); i++)
+			for (int i = Delimiters[count - 1]; i < sizeStr; i++)
 			{
 				printf("%c", str[i]);
 			}
