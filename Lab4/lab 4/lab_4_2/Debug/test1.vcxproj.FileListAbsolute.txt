@@ -1,2 +1,0 @@
-C:\С++\test1\Debug\test1.exe
-C:\С++\test1\Debug\test1.pdb
